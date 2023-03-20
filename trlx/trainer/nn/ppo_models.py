@@ -235,8 +235,8 @@ class CausalLMWithValueHead(nn.Module):
     def __init__(self, config: Union[transformers.PretrainedConfig, str]):
         super().__init__()
         if isinstance(config, str):
-            self.config = transformers.AutoConfig.from_pretrained(config)
-            self.base_model = transformers.AutoModelForCausalLM.from_pretrained(config)
+            self.config = transformers.AutoConfig.from_pretrained(config, trust_remote_code=True)
+            self.base_model = transformers.AutoModelForCausalLM.from_pretrained(config, trust_remote_code=True)
         else:
             self.config = config
             self.base_model = transformers.AutoModelForCausalLM.from_config(config)
@@ -310,8 +310,8 @@ class CausalLMHydraWithValueHead(nn.Module):
         super().__init__()
 
         if isinstance(config, str):
-            self.config = transformers.AutoConfig.from_pretrained(config)
-            self.base_model = transformers.AutoModelForCausalLM.from_pretrained(config)
+            self.config = transformers.AutoConfig.from_pretrained(config, trust_remote_code=True)
+            self.base_model = transformers.AutoModelForCausalLM.from_pretrained(config, trust_remote_code=True)
         else:
             self.config = config
             self.base_model = transformers.AutoModelForCausalLM.from_config(config)
@@ -430,11 +430,11 @@ class Seq2SeqLMHydraWithValueHead(nn.Module):
     ):
         super().__init__()
         if isinstance(config, str):
-            self.config = transformers.AutoConfig.from_pretrained(config)
+            self.config = transformers.AutoConfig.from_pretrained(config, trust_remote_code=True)
         else:
             self.config = config
         self.base_model = transformers.AutoModelForSeq2SeqLM.from_pretrained(
-            self.config.name_or_path
+            self.config.name_or_path, trust_remote_code=True
         )
         self.v_head = make_head(hf_get_hidden_size(self.config), 1)
 
