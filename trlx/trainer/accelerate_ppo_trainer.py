@@ -131,6 +131,7 @@ class AcceleratePPOTrainer(AccelerateRLTrainer):
 
         return from_fn(
             config.model.model_path,
+            trust_remote_code=True,
             num_layers_unfrozen=config.model.num_layers_unfrozen,
         )
 

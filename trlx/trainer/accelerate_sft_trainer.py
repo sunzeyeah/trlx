@@ -33,7 +33,7 @@ class AccelerateSFTTrainer(AccelerateRLTrainer):
         )
 
     def get_arch(self, config):
-        return AutoModelForCausalLM.from_pretrained(config.model.model_path)
+        return AutoModelForCausalLM.from_pretrained(config.model.model_path, trust_remote_code=True)
 
     def loss(self, batch):
         loss = self.model(input_ids=batch.input_ids, attention_mask=batch.attention_mask, labels=batch.input_ids).loss
